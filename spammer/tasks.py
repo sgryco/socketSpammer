@@ -33,7 +33,7 @@ def reset_client_list(sender=None, conf=None, **kwargs):
 def periodic_send_handler():
     """Send periodic data to group bike_group."""
     channel_layer = get_channel_layer()
-    for i in range(10):
+    for i in range(20):
         a = random.randint(1, 100)
         async_to_sync(channel_layer.group_send)(
             "spam_group", {"type": "group.send",
