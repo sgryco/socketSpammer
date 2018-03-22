@@ -1,0 +1,9 @@
+requests==2.18.4
+django-registration-redux==2.2
+Django>=2.0
+channels_redis==2.1.1
+psycopg2-binary
+# gdal provided by apt
+ipdb
+celery
+redis

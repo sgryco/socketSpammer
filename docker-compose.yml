@@ -1,0 +1,20 @@
+version: "2"
+services:
+  redis:
+    image: "redis:alpine"
+  web-base:
+    build: .
+    volumes:
+      - .:/code
+  web:
+    extends: web-base
+    command: python3 manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+  celery:
+    extends: web-base
+    command: celery -A socketSpammer worker --beat
+    depends_on:
+      - redis

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index Page</title>
+    <script type="text/javascript">
+        function onOpen(evt) {
+            console.log("Connected to websocket!");
+            websocket.send(JSON.stringify({data: "Hello"}));
+        }
+
+        function onMessage(evt) {
+            document.getElementById("rand").innerHTML = evt.data;
+        }
+
+        function setupWebSocket() {
+            prefix = "ws";
+           
+            websocket = new WebSocket(prefix + "://"  + location.host + "/ws/");
+            websocket.onopen = function(evt) { onOpen(evt); };
+            websocket.onmessage = function(evt) { onMessage(evt); };
+        }
+
+        function runButton() {
+            websocket.send(JSON.stringify({data: "Sending button click!"}));
+        }
+
+        window.addEventListener("load", setupWebSocket);
+    </script>
+</head>
+<body>
+<h2>The spam random data is <span id="rand">0</span>.</h2>
+<button type="button" onclick="runButton()">Click Me!</button>
+</body>
+</html>
